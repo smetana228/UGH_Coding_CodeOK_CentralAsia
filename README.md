@@ -1,6 +1,6 @@
 # UGH_Coding_CodeOK_CentralAsia
 UberGO
-An application made for Uber Global Hackathon in Coding Category - "UberGO". It is a innovative, inclusive eco rideshare app to solve challenges on roads. 
+An application made for Uber Global Hackathon in Coding Category - "UberGO". By Nursultan Asilbekov & Kairat Murataliev. It is a innovative, inclusive eco rideshare app to solve challenges on roads. 
 
 Clone the repository
 ```bash
