@@ -5,19 +5,20 @@ An application made for Uber Global Hackathon in Coding Category - "UberGO". It 
 Clone the repository
 ```bash
 git clone https://github.com/smetana228/UGH_Coding_CodeOK_CentralAsia.git
-
+```bash
 Install dependencies
 ```bash
 pip install -r requirements.txt
-
+```bash
 Run migrations
 ```bash
 python manage.py makemigrations
 python manage.py migrate
-
+```bash
 Run server
 ```bash
 python manage.py runserver
+```bash
 
 
 
