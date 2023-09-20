@@ -10,7 +10,7 @@ Install dependencies
 ```bash
 pip install -r requirements.txt
 ```
-Run migrations
+Make migrations
 ```bash
 python manage.py makemigrations
 python manage.py migrate
