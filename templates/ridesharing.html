@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ridesharing App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .logo {
+            width: 200px;
+            height: auto;
+        }
+
+        h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            text-align: center;
+            color: #333;
+        }
+
+        form {
+            text-align: left;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #333;
+        }
+
+        input[type="text"],
+        select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
+
+        button {
+            width: 100%;
+            background-color: #188c44; /* Green color */
+            color: #fff;
+            padding: 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease-in-out;
+        }
+
+        button:hover {
+            background-color: #116230; /* Darker green color on hover */
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 20px;
+            color: #666;
+        }
+    </style>
+    {% load static %}
+</head>
+<body>
+    <div class="container">
+        <header>
+            <img src="{% static 'uber.png' %}" alt="Uber Logo" class="logo">
+        </header>
+        <main>
+            <h1>Where to?</h1>
+            <form id="ride-request" action="/request_order/" method="post">
+                <label id="departure_label" for="departure" style="display: none;">Enter Departure Location</label>
+                <input type="text" id="departure" name="departure" style="display: none;"  required>
+                <label for="destination">Enter Destination</label>
+                <input type="text" id="destination" name="destination" placeholder="Where to?" required>
+                <label for="taxi-type">Taxi Type</label>
+                <select id="taxi-type" name="taxi-type">
+                    <option value="econom">Econom</option>
+                    <option value="comfort">Comfort</option>
+                    <option value="business">Business</option>
+                </select>
+                
+                <button type="submit">Request Ride</button>
+                <br><br>
+                <label for="checkbox">Order for someone else</label>
+                <input type="checkbox" id="checkbox" value="true">
+            </form>
+        </main>
+        <footer>
+            <p>&copy; UberGO</p>
+        </footer>
+        <script>
+
+
+            document.addEventListener("DOMContentLoaded", function () {
+    const checkbox = document.getElementById("checkbox");
+    const Departure = document.getElementById("departure");
+    const DepartureLabel = document.getElementById("departure_label");
+
+
+
+    
+
+    // Add an event listener to the checkbox
+    checkbox.addEventListener("change", function () {
+        if (checkbox.checked) {
+            // If the checkbox is checked, show the text field
+            Departure.style.display = "block";
+            DepartureLabel.style.display = "block";
+    
+        } else {
+            // If the checkbox is unchecked, hide the text field
+            Departure.style.display = "none";
+            DepartureLabel.style.display = "none";
+        }
+
+    });
+});
+
+
+
+            function getUserLocation() {
+                if ("geolocation" in navigator) {
+                    navigator.geolocation.getCurrentPosition(function(position) {
+                        var latitude = position.coords.latitude;
+                        var longitude = position.coords.longitude;
+
+                        fetch('/api/api/update_passenger_location/', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify({ latitude: latitude, longitude: longitude }),
+                        })
+                        .then(response => {
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                        });
+                    });
+                } else {
+                    console.error('Geolocation is not available in this browser.');
+                }
+            }
+        </script>
+    </div>
+</body>
+</html>

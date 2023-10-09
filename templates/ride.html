@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ridesharing App - Rate Your Ride</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+        }
+        /* Your existing CSS styles remain the same */
+        /* Add any additional styles for the rating page here */
+
+        /* Styles for the rating section */
+        .rating-container {
+            text-align: center;
+        }
+
+        .rating-header {
+            font-size: 24px;
+            margin-bottom: 20px;
+            text-align: center;
+            color: #333;
+        }
+
+        .rating-form {
+            text-align: left;
+        }
+
+        .rating-label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #333;
+        }
+
+        .rating-select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
+
+        .submit-button {
+            width: 100%;
+            background-color: #188c44;
+            color: #fff;
+            padding: 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease-in-out;
+        }
+
+        .submit-button:hover {
+            background-color: #116230;
+        }
+        .logo {
+            width: 200px;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <img class=logo src="uber.png" alt="Uber Logo" class="logo">
+        </header>
+        <main>
+            <h1>Ride Information</h1>
+            <div id='ride'>
+                    <p><strong>Passenger: </strong> Kairat</p> 
+                    <p><strong>Departure:</strong> Toktonaliev 137A  </p> 
+                    <p><strong>Destination: </strong>Prospekt Mira 182 Bishkek</p> 
+                    <p><strong>Duration:</strong> 4 Min. </p> 
+                    <p><strong>Cost:</strong> 0.8$ </p> 
+                    <p><strong>CO2 Emission: </strong>384g </p> 
+                    <p><strong>Rate:</strong> 5 - Excellent</p>
+        </main>
+        <br><br><br>
+        <footer>
+            <p>&copy; UberGO</p>
+        </footer>
+    </div>
+    <script>
+        function displayData(data) {
+            const requestsContainer = document.getElementById("ride");
+            requestsContainer.innerHTML = "";
+
+            data.forEach(request => {
+                const requestElement = document.createElement("div");
+                requestElement.classList.add("request");
+                requestElement.innerHTML = `
+                    <p><strong>${request.passenger} Driver: </strong> ${request.driver}</p> 
+                    <p><strong>Departure: ${request.departure_location} </p> 
+                    <p><strong>Destination: ${request.destination_location}</p> 
+                    <p><strong>Duration: ${request.duration} Min. </p> 
+                    <p><strong>Cost: ${request.cost}$ </p> 
+                    <p><strong>CO2 Emission: ${request.emission}g </p> 
+                    <button onclick="pickUp(${request.id})">Pick Up</button>
+                `;
+                requestsContainer.appendChild(requestElement);
+            });
+        }
+        fetch('http://127.0.0.1:8000/order/')
+            .then(response => response.json())
+            .then(data => {
+                // Display the fetched data
+                displayData(data);
+            })
+            .catch(error => {
+                console.error('Error fetching data:', error);
+            });
+    </script>
+</body>
+</html>
