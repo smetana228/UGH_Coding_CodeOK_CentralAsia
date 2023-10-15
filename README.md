@@ -12,8 +12,8 @@ pip install -r requirements.txt
 ```
 Make migrations
 ```bash
-python manage.py makemigrations
-python manage.py migrate
+python manage.py makemigrations uberland
+python manage.py migrate uberland
 ```
 Run server
 ```bash
