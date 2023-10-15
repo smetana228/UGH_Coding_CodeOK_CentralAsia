@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Driver Rides</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+        }
+
+        main {
+            margin: 100px auto auto auto;
+            box-shadow: 0 0 25px rgb(35, 144, 79);
+            text-align: center;
+            width: 500px;
+            height: 550px;
+            border-radius: 20px;
+            background: #ffffff;
+        }
+
+        h1 {
+            margin-top: auto;
+            margin-bottom: 30px;
+            text-align: center;
+            /* Выравнивание заголовка по центру */
+            position: relative;
+            /* Позиционирование элемента как относительное */
+        }
+
+        h1::after {
+            content: "";
+            display: block;
+            width: 50%;
+            border-top: 1px solid #ccc;
+            margin: 20px auto;
+        }
+
+        p {
+            font-size: 22px;
+            width: 100%;
+            display: block;
+            margin: 5px 0 20px 130px;
+            text-align: left;
+        }
+        /* Your existing CSS styles remain the same */
+        /* Add any additional styles for the rating page here */
+
+        /* Styles for the rating section */
+        .rating-container {
+            text-align: center;
+        }
+
+        .rating-header {
+            font-size: 24px;
+            margin-bottom: 20px;
+            text-align: center;
+            color: #333;
+        }
+
+        .rating-form {
+            text-align: left;
+        }
+
+        .rating-label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #333;
+        }
+
+        .rating-select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
+
+        .submit-button {
+            width: 100%;
+            background-color: #188c44;
+            color: #fff;
+            padding: 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease-in-out;
+        }
+
+        .submit-button:hover {
+            background-color: #116230;
+        }
+
+        .logo {
+            width: 200px;
+            height: auto;
+        }
+
+        .image1 {
+            width: 3%;
+        }
+
+        .image2 {
+            width: 3%;
+        }
+        button {
+            width: 80%;
+            height: 40px;
+            border-radius: 15px;
+            background-color: #188c44;
+            color: #fff;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            font-size: 18px;
+            box-shadow: 0 0 25px rgb(35, 103, 79);
+        }
+        
+
+        button:hover {
+            background-color: #116230;
+            box-shadow: 0 0 25px rgb(28, 103, 53);
+            /* Перемещаем псевдоэлемент внутрь кнопки при наведении курсора */
+        }
+        #star-container {
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        .star {
+            width: 30px; /* Set the width of the star image */
+            height: auto; /* Allow the height to adjust accordingly */
+            display: inline-block;
+        }
+
+
+    </style>
+    {%load static%}
+</head>
+
+<body>
+    <div class="container">
+        <main>
+            <div id='ride'>
+                <img class=logo src="{%static 'uber_green.png'%}" alt="Uber Logo" class="logo">
+                <h1>Ride Information</h1>
+                <p><strong>Passenger: </strong>{{data.passenger.user}}</p>
+                <p><strong><img class="image1" src="{%static 'green_dot.png'%}" alt=""></strong>{{data.departure_location}}</p>
+                <p><strong><img class="image2" src="{%static 'red_dot.png'%}" alt=""> </strong>{{data.destination_location}}</p>
+                <p><strong>Duration:</strong>{{data.duration}} Min</p>
+                <p><strong>Cost:</strong>{{data.cost}}$ </p>
+                <p><strong>CO2 Emission: </strong>{{data.emission}}g </p>
+                <p><strong>Rate:</strong><span id="star-container"></span></p> <div >
+                <br>
+                <form method="get" action="/driver_ride/">
+                <button id="home" name="home" value="home">Go home </button>
+                </form>
+
+        </main>
+        <br><br><br>
+        <footer>
+            <!-- <p>&copy; UberGO</p> -->
+        </footer>
+    </div>
+    <script>
+        const ratingValue = {{data.rating}}; // Example rating value
+
+        const starContainer = document.getElementById('star-container');
+        for (let i = 0; i < ratingValue; i++) {
+            const starImage = document.createElement('img');
+            starImage.src = '{%static "star.png"%}'; // Replace with the path to your star image
+            starImage.alt = 'star'; // Set the alt text for accessibility
+            starImage.classList.add('star');
+            starContainer.appendChild(starImage);
+        }
+    </script>
+</body>
+
+</html>

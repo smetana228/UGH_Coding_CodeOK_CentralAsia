@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recieve Ride</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .request-container {
+            margin: auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 30%;
+        }
+
+        .request {
+            width: 95%;
+            font-size: 18px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            margin-bottom: 20px;
+            padding: 20px 0 10px 20px;
+            border: 1px solid #ddd;
+            border-radius: 20px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+        }
+
+        button {
+            width: 95%;
+            height: 40px;
+            border-radius: 15px;
+            background-color: #188c44;
+            color: #fff;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            font-size: 18px;
+            box-shadow: 0 0 25px rgb(35, 144, 79);
+        }
+        span {
+            padding-bottom: 20px;
+        }
+        
+    
+    </style>
+    {%load static%}
+</head>
+
+<body>
+    <div class="request-container">
+        <h1>Ride Requests</h1>
+        <div id="requests">
+            <!-- Ride requests will be dynamically added here -->
+        </div>
+    </div>
+
+    <script>
+        // Function to display ride requests
+        function displayRequests(data) {
+            const requestsContainer = document.getElementById("requests");
+            requestsContainer.innerHTML = "";
+
+            data.forEach(request => {
+                const requestElement = document.createElement("div");
+                requestElement.classList.add("request");
+                requestElement.innerHTML = `
+                <span>Passenger: ${request.passenger}</span>
+                <span>Departure: ${request.departure_location}</span>
+                <span>Destination: ${request.destination_location}</span>
+                <span>Duration: ${request.duration} Min.</span>
+                <span>Cost: ${request.cost}$</span>
+                <span>CO2 Emission: ${request.emission}g</span>
+                <button onclick="pickUp(${request.id})">Pick Up</button>
+                `;
+                requestsContainer.appendChild(requestElement);
+            });
+        }
+
+        // Function to simulate picking up a ride request
+        function pickUp(requestId) {
+
+            // Send a request to the server to pick up the ride
+            fetch('http://127.0.0.1:8000/recieve_order/', {
+                method: 'POST', // Use the appropriate HTTP method (POST in this case)
+                headers: {
+                    'Content-Type': 'application/json', // Set the content type to JSON
+                },
+                body: JSON.stringify({ ride_id: requestId }), // Send ride_id in the request body as JSON
+            })
+                .then(response => {
+                    if (response.ok) {
+                        window.location.href = 'http://127.0.0.1:8000/driver_map/';
+                        // Successfully picked up the ride, update the UI
+                        console.log(`Picked up ride request with ID ${requestId}`);
+                        // You can also remove the request from the displayed list
+                        // After that, fetch the updated list of requests from the server and display them
+                        fetch('http://127.0.0.1:8000/order/')
+                            .then(response => response.json())
+                            .then(data => {
+                                // Display the fetched data
+                                displayRequests(data);
+                            })
+                            .catch(error => {
+                                console.error('Error fetching data:', error);
+                            });
+                    } else {
+                        console.error('Failed to pick up ride:', response.status);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error picking up ride:', error);
+                });
+        }
+
+        // Simulate fetching data from an API (replace with your actual API endpoint)
+        fetch('http://127.0.0.1:8000/order/')
+            .then(response => response.json())
+            .then(data => {
+                // Display the fetched data
+                displayRequests(data);
+            })
+            .catch(error => {
+                console.error('Error fetching data:', error);
+            });
+    </script>
+</body>
+
+</html>

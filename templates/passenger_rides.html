@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ride Requests</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .request-container {
+            margin: auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 30%;
+        }
+
+        .request {
+            width: 95%;
+            font-size: 18px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            margin-bottom: 20px;
+            padding: 20px 0 10px 20px;
+            border: 1px solid #ddd;
+            border-radius: 20px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+        }
+
+        button {
+            width: 95%;
+            height: 40px;
+            border-radius: 15px;
+            background-color: #188c44;
+            color: #fff;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            font-size: 18px;
+            box-shadow: 0 0 25px rgb(35, 144, 79);
+        }
+        span {
+            padding-bottom: 20px;
+        }
+        #star-container {
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        .star {
+            width: 30px; /* Set the width of the star image */
+            height: auto; /* Allow the height to adjust accordingly */
+            display: inline-block;
+        }
+        
+    </style>
+    {%load static%}
+</head>
+
+<body>
+    <div class="request-container">
+        <h1>Rides</h1>
+        <div id="requests">
+            
+        {% for ride in rides %}
+        <ul class="request">
+            <span>Driver: {{ride.driver.user}}</span>
+                <span>Departure: {{ride.departure_location}}</span>
+                <span>Destination: {{ride.destination_location}}</span>
+                <span>Duration: {{ride.duration}} Min.</span>
+                <span>Cost: {{ride.cost}}$</span>
+                <span>CO2 Emission: {{ride.emission}}g</span>
+                <span>Rate: {{ride.rating}}</span>
+
+        </ul>
+        {% endfor %}
+            <!-- Ride requests will be dynamically added here -->
+        </div>
+        <form method="get" action="/request_order/">
+        <button> Request rides </button>
+    </form>
+    </div>
+</body>
+
+</html>

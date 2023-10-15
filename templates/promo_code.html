@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Promo Code</title>
+    <style>
+        /* Basic styling for the page */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f7f7;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .promo-container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 24px;
+            color: #333;
+        }
+
+        p {
+            font-size: 18px;
+            color: #666;
+        }
+
+        .promo-code {
+            font-size: 36px;
+            font-weight: bold;
+            color: #188c44; /* Custom color for promo code */
+            margin: 20px 0;
+        }
+
+        /* Customize the button style */
+        .promo-button {
+            background-color: #ff5733;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            font-size: 18px;
+            cursor: pointer;
+        }
+
+        .promo-button:hover {
+            background-color: #ff3d00; /* Darker shade for hover effect */
+        }
+
+        /* Add the UberGO label */
+        .company-label {
+            font-size: 24px;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="promo-container">
+        <h1>Daily Promo Code</h1>
+        <!-- Add the UberGO label here -->
+        <p class="company-label">UberGO</p>
+        <p>Here's your daily promo code:</p>
+        <p class="promo-code">{{promo_code}}</p>
+    </div>
+</body>
+</html>

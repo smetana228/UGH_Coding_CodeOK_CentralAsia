@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Driver Map</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px; /* Increase max-width to accommodate the map */
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .logo {
+            width: 200px;
+            height: auto;
+        }
+
+        h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            text-align: center;
+            color: #333;
+        }
+
+        form {
+            text-align: left;
+        }
+
+        label {
+            display: block;
+
+            margin-bottom: 5px;
+            color: #333;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            max-width: 1000px;
+        }
+
+        input[type="text"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
+
+        button {
+            width: 100%;
+            background-color: #188c44; /* Green color */
+            color: #fff;
+            padding: 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease-in-out;
+        }
+
+        button:hover {
+            background-color: #116230; /* Darker green color on hover */
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 20px;
+            color: #666;
+        }
+
+        #map-container {
+            position: relative;
+            width: 100%;
+            height: 500px; /* Set the map height */
+            margin-bottom: 20px;
+        }
+        .map-buttons {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            z-index: 1;
+            text-align: center;
+        }
+        .chat-container {
+            border: 1px solid #ccc;
+            width: 100%;
+            height: 300px;
+            overflow-y: scroll;
+            margin-bottom: 20px;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        .chat-message {
+            background-color: #f1f1f1;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+        }
+    </style>
+    {%load static%}
+</head>
+<body>
+    <div class="container">
+        <header>
+            <img class="logo" src="{%static 'uber_green.png'%}" alt="Logo">
+            <h1>Ride Information</h1>
+        </header>
+
+        <div id="map-container">
+            <!-- Include your map here -->
+            <!-- Replace this with your actual map code (e.g., the iframe) -->
+            <iframe src="{% url 'ride_map'%}" width="100%" height="100%"></iframe>
+            <div class="map-buttons">
+                <label><p><strong>Passenger:</strong> {{data.passenger.user}}</p>
+                       <p><strong>Destination:</strong> {{data.destination_location}}</p>
+                       <p><strong>Cost:</strong> {{data.cost}}$</p>
+                       <p><strong>Arrival time:</strong> {{data.duration}} Min</p>
+                       <p><strong>CO2 Emission:</strong> {{data.emission}}g</p>
+                       </label>
+                <form method="get" action="/driver_ride_map/">
+                <button id="finish" name="finish" value="finish"><strong>Finish the ride</strong></button>
+                </form>
+            </div>
+        </div>
+
+        <footer>
+            &copy; UberGO
+        </footer>
+    </div>
+</body>
+</html>
