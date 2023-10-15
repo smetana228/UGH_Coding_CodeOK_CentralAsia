@@ -244,7 +244,7 @@ def recieve_order(request):
     if ride_id:
         requests=RequestRide.objects.get(id=ride_id)
         drive=Driver.objects.get(user=request.user)
-        driver_location='1520 E Buena Vista Drive #A'
+        driver_location='Absamat Masaliev'
         d=lnlg(driver_location, requests.departure_location)
         l=driver_calculator(d)
         requests.recieved=True
