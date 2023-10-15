@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ride-Sharing App Registration</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .logo {
+            width: 200px;
+            height: auto;
+        }
+
+        h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            text-align: center;
+            color: #333;
+        }
+
+        form {
+            text-align: left;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #333;
+        }
+        .to{
+            margin-bottom: 0px;
+        }
+
+
+        input[type="text"],
+        select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
+
+        button {
+            width: 100%;
+            background-color: #188c44; /* Green color */
+            color: #fff;
+            padding: 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease-in-out;
+        }
+
+        button:hover {
+            background-color: #116230; /* Darker green color on hover */
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 20px;
+            color: #666;
+        }
+    </style>
+    {% load static %}
+</head>
+<body>
+    <div class="container">
+        <header>
+            <img src="{% static 'uber.png' %}" alt="Uber Logo" class="logo">     
+        </header>
+        <h1>Register</h1>
+        <form id="registration-form" action="/login/" method="post">
+            
+            
+            <label for="first_name">First Name:</label>
+            <input type="text" id="first_name" name="first_name" required>
+            
+            <label for="last_name">Last Name:</label>
+            <input type="text" id="last_name" name="last_name" required>
+            
+            <label for="phone_number">Phone Number:</label>
+            <input type="text" id="phone_number" name="phone_number" required>
+            <label>Register as:</label>
+            <label for="passenger">Passenger</label>
+            <input type="radio" id="passenger" name="user_type" value="passenger" required>
+            
+            <label for="driver">Driver</label>
+            <input type="radio" id="driver" name="user_type" value="driver" required>
+            
+            <button type="submit">Register</button>
+        </form>
+        <div class="error-message" style="color: red;">
+            {% if error_message %}
+                {{ error_message }}
+            {% endif %}
+        </div>
+        <footer>
+            <p>&copy; UberGO</p>
+        </footer>
+    </div>
+
+</body>
+</html>
